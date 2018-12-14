@@ -59,3 +59,10 @@ typings/
 
 # next.js build output
 .next
+
+# expo
+.expo/*
+*.jks
+*.p12
+*.key
+*.mobileprovision
