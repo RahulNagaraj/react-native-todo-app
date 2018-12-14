@@ -1,5 +1,12 @@
 import React from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
+} from "react-native";
 
 export default class App extends React.Component {
   state = {
@@ -26,15 +33,16 @@ export default class App extends React.Component {
     const { todoList } = this.state;
     return todoList.map((todo, i) => {
       return (
-        <Text
-          onPress={() => {
-            this.removeTodo(todo);
-          }}
-          key={`${todo}_${i}`}
-          style={styles.list}
-        >
-          {todo}
-        </Text>
+        <TouchableOpacity key={`${todo}_${i}`}>
+          <Text
+            onPress={() => {
+              this.removeTodo(todo);
+            }}
+            style={styles.list}
+          >
+            {todo}
+          </Text>
+        </TouchableOpacity>
       );
     });
   };
@@ -42,18 +50,21 @@ export default class App extends React.Component {
     const { text } = this.state;
     return (
       <View style={styles.container}>
-        <Text>Welcome to React Native</Text>
-        <TextInput
-          style={styles.inputField}
-          value={text}
-          onChangeText={text => this.setState({ text })}
-        />
-        <Button
-          onPress={this.addTodo}
-          style={styles.myButton}
-          title="Add Todo"
-        />
-        {this.renderTodos()}
+        <View style={styles.wrapper}>
+          <Text style={styles.header}>Notes App</Text>
+          <TextInput
+            style={styles.inputField}
+            value={text}
+            onChangeText={text => this.setState({ text })}
+          />
+          <Button
+            onPress={this.addTodo}
+            style={styles.myButton}
+            color="#5393ff"
+            title="Add Todo"
+          />
+          {this.renderTodos()}
+        </View>
       </View>
     );
   }
@@ -62,9 +73,17 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#fff"
+  },
+  wrapper: {
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    margin: 10,
+    marginTop: 30
+  },
+  header: {
+    fontSize: 40,
+    color: "#2196f3"
   },
   inputField: {
     height: 50,
@@ -73,7 +92,9 @@ const styles = StyleSheet.create({
     borderColor: "skyblue"
   },
   list: {
+    fontSize: 24,
     marginTop: 5,
-    marginBottom: 5
+    marginBottom: 5,
+    color: "#f50057"
   }
 });
