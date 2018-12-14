@@ -15,10 +15,27 @@ export default class App extends React.Component {
       text: ""
     });
   };
+  removeTodo = todo => {
+    const { todoList } = this.state;
+    const newtodoList = todoList.filter(t => t !== todo);
+    this.setState({
+      todoList: newtodoList
+    });
+  };
   renderTodos = () => {
     const { todoList } = this.state;
-    return todoList.map(todo => {
-      return <Text>{todo}</Text>;
+    return todoList.map((todo, i) => {
+      return (
+        <Text
+          onPress={() => {
+            this.removeTodo(todo);
+          }}
+          key={`${todo}_${i}`}
+          style={styles.list}
+        >
+          {todo}
+        </Text>
+      );
     });
   };
   render() {
@@ -55,11 +72,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "skyblue"
   },
-  myButton: {
-    margin: 10,
-    width: 50
-  },
   list: {
-    textAlign: "center"
+    marginTop: 5,
+    marginBottom: 5
   }
 });
